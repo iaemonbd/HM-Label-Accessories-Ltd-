@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HM Label & Accessories Ltd. | Premium Profile</title>
+  
+  <!-- LUXURY FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* =========================================
+       CSS VARIABLES (LUXURY THEME)
+       ========================================= */
+    :root {
+      /* Deep Luxury Palette */
+      --bg-body: #020408;         /* Almost Black Navy */
+      --bg-card: #0A0F18;         /* Deep Card */
+      --bg-glass: rgba(10, 15, 24, 0.85);
+      --primary: #D4AF37;         /* Metallic Gold */
+      --primary-hover: #F2C94C;   /* Lighter Gold */
+      --text-main: #F2F2F2;       /* Crisp White */
+      --text-muted: #A0A0A0;      /* Soft Grey */
+      --border-color: rgba(212, 175, 55, 0.15);
+      
+      /* Typography */
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Inter', sans-serif;
+      
+      /* Spacing */
+      --container-width: 1280px;
+      --radius: 2px;
+      --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+    }
+
+    /* Global Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Grain Texture */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: #fff;
+      font-weight: 400; 
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    
+    .section-title-uppercase {
+        text-transform: uppercase;
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        color: var(--primary);
+        text-align: center;
+        display: block;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    h2 {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+      margin: 20px auto 0;
+    }
+
+    p { margin-bottom: 1.5rem; color: var(--text-muted); font-weight: 300; font-size: 0.95rem; }
+
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-padding { padding: 100px 0; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+
+    /* =========================================
+       HEADER (NO LOGO)
+       ========================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(2, 4, 8, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 15px 0;
+      transition: padding 0.3s ease;
+    }
+    header.scrolled { padding: 10px 0; background: rgba(2, 4, 8, 0.95); }
+
+    .nav-container { display: flex; justify-content: center; align-items: center; } /* Centered Nav since no logo */
+    
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a { 
+      font-size: 0.75rem; 
+      font-weight: 500; 
+      color: var(--text-muted); 
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-family: var(--font-body);
+      position: relative;
+    }
+    .nav-links a::after {
+        content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--primary); transition: var(--transition);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+    .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); position: absolute; right: 40px; top: 15px; }
+
+    /* =========================================
+       HERO SECTION (Video + BIG LOGO)
+       ========================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: #000; 
+    }
+
+    .video-bg-container {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    /* Video Element */
+    .bg-video {
+      position: absolute;
+      top: 50%; left: 50%;
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.5; /* Slightly lighter so logo pops */
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(2,4,8,0.8) 70%, rgba(2,4,8,1) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+      max-width: 900px;
+    }
+
+    /* HERO LOGO STYLING */
+    .hero-logo-wrapper {
+        margin-bottom: 40px;
+        display: inline-block;
+        position: relative;
+    }
+    .hero-logo {
+        height: 180px; /* Large Logo */
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 30px rgba(0,0,0,0.9)); /* Strong Shadow/Glow */
+        animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      line-height: 1.05;
+      margin-bottom: 25px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      letter-spacing: -1px;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--primary); }
+    .hero-content p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; color: #ddd; font-weight: 300; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background-color: var(--primary);
+      color: #000;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      border: 1px solid var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .btn:hover {
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .btn-outline {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      margin-left: 20px;
+    }
+    .btn-outline:hover {
+      background-color: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    /* =========================================
+       SUSTAINABILITY SECTION (BEAUTIFUL CARDS)
+       ========================================= */
+    .sustainability-section {
+      background-color: var(--bg-body);
+      position: relative;
+    }
+    .sustainability-section::before {
+        content: ''; position: absolute; inset: 0;
+        background-image: radial-gradient(circle, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .sus-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .sus-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        padding: 50px 30px;
+        text-align: center;
+        border-radius: 4px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .sus-card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+    }
+
+    .sus-card:hover {
+        transform: translateY(-10px);
+        background: rgba(212, 175, 55, 0.05);
+        border-color: var(--primary);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .sus-card:hover::before { transform: scaleX(1); }
+
+    .sus-icon {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 25px;
+        display: inline-block;
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .sus-card h3 {
+        font-family: var(--font-body);
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 15px;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .quote-box {
+        grid-column: 1 / -1;
+        margin-top: 60px;
+        text-align: center;
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: 1.5rem;
+        color: var(--primary);
+        position: relative;
+        padding: 40px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* =========================================
+       PROCESS SECTION
+       ========================================= */
+    .process-section {
+      background-color: var(--bg-body);
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .anim-container {
+      width: 100%; max-width: 1000px; height: 350px; margin: 0 auto 70px;
+      background: #05070a; border-radius: 4px; position: relative; overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .machine-svg { width: 100%; height: 100%; }
+    .path-thread { fill: none; stroke: var(--primary); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: weaveThread 5s linear infinite; filter: drop-shadow(0 0 5px var(--primary)); }
+    .gear { transform-origin: center; animation: spin 6s linear infinite; }
+    .gear-2 { animation-direction: reverse; animation-duration: 8s; }
+    .label-shape { fill: #000; stroke: var(--primary); stroke-width: 2; opacity: 0; animation: popIn 5s linear infinite; animation-delay: 3.8s; }
+    @keyframes weaveThread { 0% { stroke-dashoffset: 1200; } 40% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; } }
+    @keyframes popIn { 0%, 30% { opacity: 0; transform: scale(0); } 40% { opacity: 1; transform: scale(1); } 90% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .process-step { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.03); padding: 30px; position: relative; transition: var(--transition); }
+    .process-step:hover { border-color: var(--primary); transform: translateY(-5px); background: #0d121c; }
+    .step-number { font-family: var(--font-heading); font-size: 2.5rem; color: rgba(255,255,255,0.05); font-weight: 700; line-height: 1; margin-bottom: 15px; }
+    .step-content h3 { font-family: var(--font-body); font-size: 0.9rem; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+    .step-content p { margin: 0; font-size: 0.9rem; line-height: 1.6; }
+
+    /* =========================================
+       ABOUT & PRODUCTS (REUSED STYLES)
+       ========================================= */
+    .about-text h2 { text-align: left; margin-bottom: 30px; }
+    .about-text h2::after { margin: 15px 0 0 0; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .stat-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: var(--bg-card); border: 1px solid var(--border-color); transition: var(--transition); }
+    .stat-box:hover { border-color: var(--primary); background: #0d121c; }
+    .stat-number { font-family: var(--font-heading); font-size: 2.8rem; color: var(--primary); margin-bottom: 10px; font-weight: 400; }
+    .stat-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+
+    .filter-buttons { display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; flex-wrap: wrap; }
+    .filter-btn { padding: 12px 30px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--text-muted); cursor: pointer; transition: var(--transition); font-weight: 500; font-family: var(--font-body); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+    .filter-btn:hover { color: #fff; border-color: #fff; }
+    .filter-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(212, 175, 55, 0.05); }
+
+    .product-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.03); overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .product-image-wrapper { height: 240px; width: 100%; overflow: hidden; background-color: #05070a; position: relative; }
+    .product-card:hover .product-image-wrapper::after { content: ''; position: absolute; inset: 0; background: rgba(212, 175, 55, 0.1); }
+    .product-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(30%); }
+    .product-card:hover .product-image-wrapper img { transform: scale(1.05); filter: grayscale(0%); }
+    .product-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+    .product-info h3 { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 15px; color: #fff; font-weight: 400; }
+    .product-info p { font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.7; }
+    .tag { display: inline-block; background: rgba(255,255,255,0.05); color: #fff; padding: 5px 12px; border-radius: 2px; font-size: 0.7rem; margin: 0 5px 5px 0; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* =========================================
+       TABLE & FOOTER & RESPONSIVE
+       ========================================= */
+    .table-container { background: var(--bg-card); border: 1px solid var(--border-color); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 20px 30px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    th { background: #05070a; color: var(--primary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; font-family: var(--font-body); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    
+    .team-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.03); overflow: hidden; text-align: center; transition: var(--transition); }
+    .team-card:hover { border-color: var(--primary); transform: translateY(-10px); }
+    .team-img-wrapper { width: 100%; height: 320px; background-color: #05070a; overflow: hidden; }
+    .team-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: var(--transition); }
+    .team-card:hover .team-img { filter: grayscale(0%); transform: scale(1.05); }
+    .team-info { padding: 30px; background: var(--bg-card); }
+    .team-info h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+    .team-role { color: var(--primary); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+    
+    .map-wrapper { border: 1px solid var(--border-color); overflow: hidden; height: 300px; margin-bottom: 30px; background: #000; }
+    .google-map { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(100%) contrast(90%); }
+    .map-label { font-family: var(--font-body); font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 2px; }
+    
+    footer { background-color: #000; padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
+    .footer-logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 400; margin-bottom: 15px; display: block; color: #fff; }
+    .footer-logo span { color: var(--primary); font-style: italic; }
+    .copy { color: #555; font-size: 0.8rem; }
+    .footer-links { margin: 25px 0; }
+    .footer-links a { color: #777; margin: 0 20px; font-size: 0.9rem; }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero-content h1 { font-size: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #020408; padding: 20px; border-bottom: 1px solid var(--border-color); }
+      .nav-links.active { display: flex; }
+      .nav-links a { padding: 15px 0; display: block; text-align: center; }
+      .mobile-toggle { display: block; }
+      .hero { height: auto; padding: 120px 0; }
+      .section-padding { padding: 80px 0; }
+      .hero-logo { height: 120px; } /* Smaller logo on mobile */
+      header { padding: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+
+    <!-- HEADER START (NO LOGO) -->
+    <header>
+        <div class="container nav-container">
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#process">Process</a>
+                <a href="#products">Products</a>
+                <a href="#machinery">Machinery</a>
+                <a href="#team">Team</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- HEADER END -->
+
+
+    <!-- HERO START (VIDEO + BIG LOGO) -->
+    <section id="home" class="hero">
+        <div class="video-bg-container">
+            <!-- 
+               VIDEO IMPLEMENTATION:
+               The 'poster' attribute loads bg.png immediately if video is loading or fails.
+               'muted' and 'autoplay' are required for background video in most browsers.
+            -->
+            <video autoplay muted loop playsinline class="bg-video" poster="bg.png" id="heroVideo">
+                <!-- If your file is named 'do.mp4', change src below to 'do.mp4' -->
+                <source src="vdo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content">
+            <!-- LOGO MOVED HERE -->
+            <div class="hero-logo-wrapper">
+                <!-- Fallback text if logo.png is missing -->
+                <img src="logo.png" alt="HM Label Logo" class="hero-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <div style="display:none; font-family: 'Playfair Display'; font-weight:400; font-style:italic; font-size: 3.5rem; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,1);">HM <span style="color:#D4AF37">Label</span></div>
+            </div>
+
+            <h1>Precision Crafted<br> <em>Brand Essentials</em></h1>
+            <p>Elevating your brand's presentation through high-quality garment accessories, custom hangtags, and technical solutions.</p>
+            <a href="#products" class="btn">Explore Products</a>
+            <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+    </section>
+    <!-- HERO END -->
+
+
+    <!-- PROCESS SECTION START -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <span class="section-title-uppercase">The Workflow</span>
+            <h2>Our Production Cycle</h2>
+            
+            <!-- Animation -->
+            <div class="anim-container">
+                <svg class="machine-svg" viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glow"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <line x1="0" y1="175" x2="1000" y2="175" stroke="#1a1a1a" stroke-width="1" />
+                    <circle cx="150" cy="175" r="40" fill="none" stroke="#333" stroke-width="2" />
+                    <rect x="350" y="100" width="120" height="150" rx="4" fill="#05070a" stroke="#333" stroke-width="1"/>
+                    <rect x="700" y="80" width="150" height="190" rx="4" fill="#05070a" stroke="#333" stroke-width="1"/>
+                    <g class="gear" transform="translate(150, 175)"><path d="M0 -20 L5 -5 L20 0 L5 5 L0 20 L-5 5 L-20 0 L-5 -5 Z" fill="none" stroke="#D4AF37" stroke-width="2" /></g>
+                    <g class="gear gear-2" transform="translate(410, 175)"><circle r="15" fill="none" stroke="#D4AF37" stroke-width="3" stroke-dasharray="4 3" /><circle r="5" fill="#D4AF37" /></g>
+                    <text x="150" y="240" text-anchor="middle" fill="#444" font-size="12" font-family="Inter">Raw Material</text>
+                    <text x="410" y="270" text-anchor="middle" fill="#444" font-size="12" font-family="Inter">Weaving</text>
+                    <text x="775" y="295" text-anchor="middle" fill="#444" font-size="12" font-family="Inter">Finishing</text>
+                    <path class="path-thread" d="M150 175 L250 175 L300 175 L350 155 L470 195 L600 175 L700 175 L900 175" filter="url(#glow)" />
+                    <g transform="translate(920, 155)"><rect class="label-shape" x="0" y="0" width="40" height="40" rx="2" /><text x="20" y="26" text-anchor="middle" fill="#D4AF37" font-size="20" font-family="serif" font-weight="bold" class="label-shape">H</text></g>
+                </svg>
+            </div>
+
+            <!-- 6 Steps Grid -->
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content"><h3>Design & Sampling</h3><p>Conceptualizing and creating initial samples to match your brand vision.</p></div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content"><h3>Buyer’s Approval</h3><p>Reviewing samples with the buyer for final confirmation before mass production.</p></div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content"><h3>Material Sourcing</h3><p>Procuring high-quality raw materials and certified inks from trusted suppliers.</p></div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content"><h3>Manufacturing</h3><p>Executing production using state-of-the-art Swiss and German machinery.</p></div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content"><h3>Quality Control</h3><p>Rigorous inspection of every piece to ensure durability and accuracy.</p></div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">06</div>
+                    <div class="step-content"><h3>Packaging & Delivery</h3><p>Secure packaging and timely logistics to reach your facility.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- PROCESS SECTION END -->
+
+
+    <!-- ABOUT START -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="grid-2">
+                <div class="about-text">
+                    <span class="section-title-uppercase">About Us</span>
+                    <h2>Who We Are</h2>
+                    <p>HM Label & Accessories Ltd is a premier manufacturer of high-quality (RMG) garment accessories.</p>
+                    <p><strong>Our Mission:</strong> To elevate your brand’s presentation through precision-crafted packaging and branding essentials. As a forward-thinking startup, we bring fresh energy and commitment to quality in every piece we produce.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box"><div class="stat-number">100%</div><div class="stat-label">Quality Focus</div></div>
+                    <div class="stat-box"><div class="stat-number">High</div><div class="stat-label">Capacity</div></div>
+                    <div class="stat-box"><div class="stat-number">24/7</div><div class="stat-label">Support</div></div>
+                    <div class="stat-box"><div class="stat-number">Custom</div><div class="stat-label">Solutions</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ABOUT END -->
+
+
+    <!-- PRODUCTS START -->
+    <section id="products" class="section-padding" style="background-color: #05070a;">
+        <div class="container">
+            <span class="section-title-uppercase">Our Catalog</span>
+            <h2>Our Products</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="labels">Labels</button>
+                <button class="filter-btn" data-filter="tech">Technical</button>
+                <button class="filter-btn" data-filter="packaging">Packaging</button>
+                <button class="filter-btn" data-filter="hardware">Hardware</button>
+            </div>
+            <div class="grid-3">
+                <!-- 1. Woven Labels -->
+                <div class="product-card" data-category="labels">
+                    <div class="product-image-wrapper"><img src="WovenLabels.png" alt="Woven Labels" onerror="this.src='https://picsum.photos/seed/woven/800/800'"></div>
+                    <div class="product-info"><h3>Woven Labels</h3><p>High-definition weaving for durable and detailed brand identity on apparel.</p><div class="tags-wrapper"><span class="tag">Premium</span><span class="tag">Durable</span></div></div>
+                </div>
+                <!-- 2. PFL -->
+                <div class="product-card" data-category="labels">
+                    <div class="product-image-wrapper"><img src="PFL.png" alt="Printed Fabric Labels" onerror="this.src='https://picsum.photos/seed/pfl/800/800'"></div>
+                    <div class="product-info"><h3>Printed Fabric Labels</h3><p>High-quality care and composition labels printed on materials like satin, cotton, and nylon.</p><div class="tags-wrapper"><span class="tag">Satin</span><span class="tag">Cotton</span></div></div>
+                </div>
+                <!-- 3. Heat Transfer -->
+                <div class="product-card" data-category="labels">
+                    <div class="product-image-wrapper"><img src="HeatTransfer.png" alt="Heat Transfer Labels" onerror="this.src='https://picsum.photos/seed/heat/800/800'"></div>
+                    <div class="product-info"><h3>Heat Transfer Labels</h3><p>Innovative tag-less labeling solutions applied via heat for comfort and durability.</p><div class="tags-wrapper"><span class="tag">Tag-less</span><span class="tag">Comfort</span></div></div>
+                </div>
+                <!-- 4. Screen Labels -->
+                <div class="product-card" data-category="labels">
+                    <div class="product-image-wrapper"><img src="ScreenLabels.png" alt="Screen Printed Labels" onerror="this.src='https://picsum.photos/seed/screen/800/800'"></div>
+                    <div class="product-info"><h3>Screen Printed Labels</h3><p>Vibrant and long-lasting labels produced with traditional screen techniques.</p><div class="tags-wrapper"><span class="tag">Vibrant</span><span class="tag">Color</span></div></div>
+                </div>
+                <!-- 5. Barcode -->
+                <div class="product-card" data-category="tech">
+                    <div class="product-image-wrapper"><img src="Barcode.png" alt="Variable Data" onerror="this.src='https://picsum.photos/seed/barcode/800/800'"></div>
+                    <div class="product-info"><h3>Variable Data & Barcode</h3><p>Precision printing for price stickers, barcodes, and SKU labels.</p><div class="tags-wrapper"><span class="tag">SKU</span><span class="tag">Tracking</span></div></div>
+                </div>
+                <!-- 6. Wax Ribbons -->
+                <div class="product-card" data-category="tech">
+                    <div class="product-image-wrapper"><img src="WaxRibbons.png" alt="Thermal Wax Ribbons" onerror="this.src='https://picsum.photos/seed/wax/800/800'"></div>
+                    <div class="product-info"><h3>Thermal Wax Ribbons</h3><p>High-performance, smudge-resistant ribbons for crisp thermal printing.</p><div class="tags-wrapper"><span class="tag">Resin</span><span class="tag">Crisp</span></div></div>
+                </div>
+                <!-- 7. RFID -->
+                <div class="product-card" data-category="tech">
+                    <div class="product-image-wrapper"><img src="RFID.png" alt="RFID Smart Labeling" onerror="this.src='https://picsum.photos/seed/rfid/800/800'"></div>
+                    <div class="product-info"><h3>RFID & Smart Labeling</h3><p>Advanced tracking technology for efficient supply chain and retail management.</p><div class="tags-wrapper"><span class="tag">IoT</span><span class="tag">Smart</span></div></div>
+                </div>
+                <!-- 8. Branding Hangtags (Packaging) -->
+                <div class="product-card" data-category="packaging">
+                    <div class="product-image-wrapper"><img src="Hangtags.png" alt="Branding Hangtags" onerror="this.src='https://picsum.photos/seed/hangtags/800/800'"></div>
+                    <div class="product-info"><h3>Branding Hangtags</h3><p>Custom-designed tags using offset and digital printing to enhance visual appeal.</p><div class="tags-wrapper"><span class="tag">Offset</span><span class="tag">Digital</span></div></div>
+                </div>
+                <!-- 9. Seal Cords (Packaging) -->
+                <div class="product-card" data-category="packaging">
+                    <div class="product-image-wrapper"><img src="SealCords.png" alt="Seal Cords" onerror="this.src='https://picsum.photos/seed/cords/800/800'"></div>
+                    <div class="product-info"><h3>Seal Cords & Strings</h3><p>High-quality attachment solutions to secure hangtags.</p><div class="tags-wrapper"><span class="tag">Secure</span><span class="tag">Durable</span></div></div>
+                </div>
+                <!-- 10. Buttons (Hardware) -->
+                <div class="product-card" data-category="hardware">
+                    <div class="product-image-wrapper"><img src="Buttons.png" alt="Apparel Buttons" onerror="this.src='https://picsum.photos/seed/buttons/800/800'"></div>
+                    <div class="product-info"><h3>Apparel Buttons & Hardware</h3><p>Versatile range of functional and decorative buttons in various finishes.</p><div class="tags-wrapper"><span class="tag">Metal</span><span class="tag">Plastic</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- PRODUCTS END -->
+
+    <!-- MACHINERY START -->
+    <section id="machinery" class="section-padding">
+        <div class="container">
+            <span class="section-title-uppercase">Production Floor</span>
+            <h2>Machinery & Capacity</h2>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Machine Name</th><th>Quantity</th><th>Monthly Capacity</th></tr></thead>
+                    <tbody>
+                        <tr><td data-label="Machine Name">Taffeta MBJ 3 & 2 Muller (Switzerland)</td><td data-label="Quantity">8 Sets</td><td data-label="Capacity">40M pcs/mo</td></tr>
+                        <tr><td data-label="Machine Name">Satin MBJ 3 Muller (Switzerland)</td><td data-label="Quantity">1 Set</td><td data-label="Capacity">20M pcs/mo</td></tr>
+                        <tr><td data-label="Machine Name">Flexo & Rotary Printing (Germany)</td><td data-label="Quantity">9 Sets</td><td data-label="Capacity">32M pcs/mo</td></tr>
+                        <tr><td data-label="Machine Name">Heidelberg Offset (Germany)</td><td data-label="Quantity">3 Sets</td><td data-label="Capacity">18M pcs/mo</td></tr>
+                        <tr><td data-label="Machine Name">Thermal Printing (SATO CL4NX, Malaysia)</td><td data-label="Quantity">7 Sets</td><td data-label="Capacity">20M pcs/mo</td></tr>
+                        <tr><td data-label="Machine Name">RFID Tag Printing</td><td data-label="Quantity">2 Sets</td><td data-label="Capacity">2M pcs/mo</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- MACHINERY END -->
+
+    <!-- TEAM START -->
+    <section id="team" class="section-padding" style="background-color: #05070a;">
+        <div class="container">
+            <span class="section-title-uppercase">Leadership</span>
+            <h2>Management Team</h2>
+            <div class="grid-4">
+                <div class="team-card">
+                    <div class="team-img-wrapper"><img src="Chairman.png" alt="Chairman" class="team-img" onerror="this.src='https://picsum.photos/seed/chairman/300/300'"></div>
+                    <div class="team-info"><h3>Imtiaz Azad Emon</h3><span class="team-role">Chairman</span><div class="team-contact"><p><a href="tel:+8801719264759">+88 01719264759</a></p><a href="mailto:iaemon@hmlabel.com">Email</a></div></div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img-wrapper"><img src="ManagingDirector.png" alt="Managing Director" class="team-img" onerror="this.src='https://picsum.photos/seed/md/300/300'"></div>
+                    <div class="team-info"><h3>MD Hafizur Rahman</h3><span class="team-role">Managing Director</span><div class="team-contact"><p><a href="tel:+8801746828400">+88 01746828400</a></p><a href="mailto:hafizur@hmlabel.com">Email</a></div></div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img-wrapper"><img src="HeadOfSalesAndMarketing.png" alt="Head of Sales" class="team-img" onerror="this.src='https://picsum.photos/seed/sales/300/300'"></div>
+                    <div class="team-info"><h3>MD Jahangir Alam</h3><span class="team-role">Head of Sales & Marketing</span><div class="team-contact"><p><a href="tel:+8801627809099">+88 01627809099</a></p><a href="mailto:jahangir@hmlabel.com">Email</a></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TEAM END -->
+
+    <!-- SUSTAINABILITY START (IMPROVED) -->
+    <section id="sustainability" class="section-padding sustainability-section">
+        <div class="container">
+            <span class="section-title-uppercase">Green Future</span>
+            <h2>Our Sustainability Commitment</h2>
+            
+            <div class="sus-grid">
+                <div class="sus-card">
+                    <i class="fas fa-leaf sus-icon"></i>
+                    <h3>Eco Materials</h3>
+                    <p>Usage of Recycled Polyester and FSC-certified paper for a reduced carbon footprint.</p>
+                </div>
+                <div class="sus-card">
+                    <i class="fas fa-recycle sus-icon"></i>
+                    <h3>Waste Reduction</h3>
+                    <p>Waste reduction through efficient Swiss & German technology and optimized production cycles.</p>
+                </div>
+                <div class="sus-card">
+                    <i class="fas fa-paint-brush sus-icon"></i>
+                    <h3>Safe Inks</h3>
+                    <p>Eco-friendly, non-toxic inks for all printing needs to ensure safety for end-users.</p>
+                </div>
+                
+                <div class="quote-box">
+                    "To become a carbon-neutral manufacturing partner by promoting circularity in garment labeling."
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SUSTAINABILITY END -->
+
+    <!-- CONTACT START -->
+    <section id="contact" class="section-padding contact-section">
+        <div class="container">
+            <span class="section-title-uppercase">Reach Out</span>
+            <h2>Contact Us</h2>
+            <div class="grid-2" style="margin-bottom: 60px;">
+                <div>
+                    <div class="contact-info">
+                        <h4 style="color:var(--primary); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;">Managing Director</h4>
+                        <p><strong>MD Hafizur Rahman</strong></p>
+                        <p>Mobile: <a href="tel:+8801746828400" style="color:#fff;">+88 01746828400</a></p>
+                        <p>Email: <a href="mailto:hafizur@hmlabel.com" style="color:#fff;">hafizur@hmlabel.com</a></p>
+                    </div>
+                    <div class="contact-info" style="margin-top:40px;">
+                        <h4 style="color:var(--primary); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;">Website</h4>
+                        <a href="http://www.hmlabel.com" target="_blank" style="font-size: 1.2rem; color: var(--primary);">www.hmlabel.com</a>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <div class="contact-info">
+                        <h4 style="color:var(--primary); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;">Corporate Office</h4>
+                        <p style="color:#fff;">House#25, Road -04, Sector -3, Uttara Dhaka 1230</p>
+                    </div>
+                    <div class="contact-info">
+                        <h4 style="color:var(--primary); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase; margin-top:30px;">Factory</h4>
+                        <p style="color:#fff;">Aukpara, Ashulia, Savar, Dhaka-1341</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div>
+                    <div class="map-label"><i class="fas fa-map-marker-alt"></i> Corporate Office (Uttara)</div>
+                    <div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=House%2025%2C%20Road%204%2C%20Sector%203%2C%20Uttara%2C%20Dhaka%201230&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div>
+                </div>
+                <div>
+                    <div class="map-label"><i class="fas fa-industry"></i> Factory (Ashulia)</div>
+                    <div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Aukpara%2C%20Ashulia%2C%20Savar%2C%20Dhaka%201341&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CONTACT END -->
+
+    <!-- FOOTER START -->
+    <footer>
+        <div class="container">
+            <span class="footer-logo">HM <span>Label</span> & Accessories Ltd.</span>
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#products">Products</a>
+                <a href="#machinery">Machinery</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copy">&copy; <span id="year"></span> HM Label & Accessories Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Navigation
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // 3. Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // 4. Video Script (Ensures playback)
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('heroVideo');
+            if (video) {
+                // Attempt to play video
+                video.play().then(() => {
+                    console.log("Video is playing");
+                }).catch(error => {
+                    console.log("Autoplay prevented. Waiting for interaction.");
+                    // Add a listener to start video on first user interaction if blocked
+                    document.body.addEventListener('click', function playVideoOnClick() {
+                        video.play();
+                        document.body.removeEventListener('click', playVideoOnClick);
+                    }, { once: true });
+                });
+            }
+        });
+
+        // 5. Product Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                productCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

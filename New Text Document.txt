@@ -1,0 +1,18 @@
+1. Background & Logo (2 Files)
+bg.png (This is the header background image)
+logo.png (The main company logo)
+2. Management Team (4 Files)
+Chairman.png
+ManagingDirector.png
+HeadOfSalesAndMarketing.png
+HRAdmin.png
+3. Products (9 Files)
+WovenLabels.png
+HangTags.png
+BarcodeStickers.png
+String.png
+Button.png
+WaxRibbons.png
+HeatPressLabels.png
+PrintedLabels.png
+Stickers.png
