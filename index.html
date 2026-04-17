@@ -41,9 +41,8 @@
       font-family: var(--font-body);
       background-color: var(--bg-body);
       color: var(--text-main);
-      line-height: 1.5; /* tighter */
+      line-height: 1.5;
       overflow-x: hidden;
-      /* Diagonal line pattern from profile */
       background-image: repeating-linear-gradient(
         45deg,
         #020408,
@@ -51,10 +50,9 @@
         #0d1117 10px,
         #0d1117 11px
       );
-      cursor: none; /* hide default cursor for custom effect */
+      cursor: none;
     }
 
-    /* Subtle grain overlay (professional) */
     body::after {
       content: "";
       position: fixed;
@@ -134,6 +132,19 @@
     }
 
     /* =========================================
+       SCROLL ANIMATIONS (fade-up)
+       ========================================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================
        HEADER
        ========================================= */
     header {
@@ -167,7 +178,7 @@
     .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); position: absolute; right: 40px; top: 15px; }
 
     /* =========================================
-       HERO (Video + Bigger Logo)
+       HERO (Video + Bigger Logo + Float animation)
        ========================================= */
     .hero {
       position: relative;
@@ -214,9 +225,15 @@
       margin-bottom: 30px;
       display: inline-block;
       position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
     .hero-logo {
-      height: 240px; /* increased */
+      height: 240px;
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 10px 30px rgba(0,0,0,0.9));
@@ -247,7 +264,18 @@
       cursor: pointer;
       transition: var(--transition);
       font-family: var(--font-body);
+      position: relative;
+      overflow: hidden;
     }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: left 0.4s ease;
+    }
+    .btn:hover::before { left: 100%; }
     .btn:hover { background-color: transparent; color: var(--primary); }
     .btn-outline {
       background-color: transparent;
@@ -293,7 +321,8 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .sus-card:hover::before { transform: scaleX(1); }
-    .sus-icon { font-size: 2.8rem; color: var(--primary); margin-bottom: 20px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+    .sus-icon { font-size: 2.8rem; color: var(--primary); margin-bottom: 20px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); transition: transform 0.3s ease; }
+    .sus-card:hover .sus-icon { transform: scale(1.1); }
     .sus-card h3 {
       font-family: var(--font-body);
       font-size: 1rem;
@@ -314,6 +343,11 @@
       padding: 35px;
       border-top: 1px solid rgba(255,255,255,0.1);
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      animation: pulseGlow 3s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+      50% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
     }
 
     /* =========================================
@@ -352,7 +386,7 @@
     .about-text h2::after { margin: 12px 0 0 0; }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
     .stat-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 35px; background: var(--bg-card); border: 1px solid var(--border-color); transition: var(--transition); }
-    .stat-box:hover { border-color: var(--primary); background: #0d121c; }
+    .stat-box:hover { border-color: var(--primary); background: #0d121c; transform: scale(1.02); }
     .stat-number { font-family: var(--font-heading); font-size: 2.5rem; color: var(--primary); margin-bottom: 8px; font-weight: 400; }
     .stat-label { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
 
@@ -383,6 +417,7 @@
     th, td { padding: 18px 25px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.03); }
     th { background: #05070a; color: var(--primary); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; font-family: var(--font-body); }
     tr:last-child td { border-bottom: none; }
+    tr { transition: background 0.2s; }
     tr:hover td { background: rgba(255, 255, 255, 0.02); }
     
     /* =========================================
@@ -399,7 +434,7 @@
     .team-contact p { margin-bottom: 5px; font-size: 0.9rem; }
 
     /* =========================================
-       CONTACT & MAPS
+       CONTACT & MAPS & QR
        ========================================= */
     .contact-section .grid-2 { margin-bottom: 50px; }
     .contact-info h4 { color: var(--primary); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 18px; text-transform: uppercase; }
@@ -407,6 +442,13 @@
     .map-wrapper { border: 1px solid var(--border-color); overflow: hidden; height: 280px; margin-bottom: 20px; background: #000; }
     .google-map { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(100%) contrast(90%); }
     .map-label { font-family: var(--font-body); font-size: 0.7rem; color: var(--primary); font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 2px; }
+
+    /* QR Code styling */
+    .qr-wrapper { margin-top: 30px; text-align: center; }
+    .qr-code { display: inline-block; background: #fff; padding: 8px; border-radius: 8px; border: 2px solid var(--primary); transition: transform 0.3s ease; }
+    .qr-code:hover { transform: scale(1.05); }
+    .qr-code img { width: 130px; height: 130px; display: block; }
+    .qr-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; }
 
     /* =========================================
        FOOTER
@@ -486,8 +528,8 @@
     <section id="process" class="process-section">
         <div class="container">
             <span class="section-title-uppercase">The Workflow</span>
-            <h2>Our Production Cycle</h2>
-            <div class="anim-container">
+            <h2 class="fade-up">Our Production Cycle</h2>
+            <div class="anim-container fade-up">
                 <svg class="machine-svg" viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
                     <defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
                     <line x1="0" y1="175" x2="1000" y2="175" stroke="#1a1a1a" stroke-width="1" />
@@ -504,12 +546,12 @@
                 </svg>
             </div>
             <div class="process-grid">
-                <div class="process-step"><div class="step-number">01</div><div class="step-content"><h3>Design & Sampling</h3><p>Conceptualizing and creating initial samples to match your brand vision.</p></div></div>
-                <div class="process-step"><div class="step-number">02</div><div class="step-content"><h3>Buyer’s Approval</h3><p>Reviewing samples with the buyer for final confirmation before mass production.</p></div></div>
-                <div class="process-step"><div class="step-number">03</div><div class="step-content"><h3>Material Sourcing</h3><p>Procuring high-quality raw materials and certified inks from trusted suppliers.</p></div></div>
-                <div class="process-step"><div class="step-number">04</div><div class="step-content"><h3>Manufacturing</h3><p>Executing production using state-of-the-art Swiss and German machinery.</p></div></div>
-                <div class="process-step"><div class="step-number">05</div><div class="step-content"><h3>Quality Control</h3><p>Rigorous inspection of every piece to ensure durability and accuracy.</p></div></div>
-                <div class="process-step"><div class="step-number">06</div><div class="step-content"><h3>Packaging & Delivery</h3><p>Secure packaging and timely logistics to reach your facility.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">01</div><div class="step-content"><h3>Design & Sampling</h3><p>Conceptualizing and creating initial samples to match your brand vision.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">02</div><div class="step-content"><h3>Buyer’s Approval</h3><p>Reviewing samples with the buyer for final confirmation before mass production.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">03</div><div class="step-content"><h3>Material Sourcing</h3><p>Procuring high-quality raw materials and certified inks from trusted suppliers.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">04</div><div class="step-content"><h3>Manufacturing</h3><p>Executing production using state-of-the-art Swiss and German machinery.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">05</div><div class="step-content"><h3>Quality Control</h3><p>Rigorous inspection of every piece to ensure durability and accuracy.</p></div></div>
+                <div class="process-step fade-up"><div class="step-number">06</div><div class="step-content"><h3>Packaging & Delivery</h3><p>Secure packaging and timely logistics to reach your facility.</p></div></div>
             </div>
         </div>
     </section>
@@ -518,13 +560,13 @@
     <section id="about" class="section-padding">
         <div class="container">
             <div class="grid-2">
-                <div class="about-text">
+                <div class="about-text fade-up">
                     <span class="section-title-uppercase">About Us</span>
                     <h2>Who We Are</h2>
                     <p>HM Label & Accessories Ltd is a premier manufacturer of high-quality (RMG) garment accessories.</p>
                     <p><strong>Our Mission:</strong> To elevate your brand’s presentation through precision-crafted packaging and branding essentials. As a forward-thinking startup, we bring fresh energy and commitment to quality in every piece we produce.</p>
                 </div>
-                <div class="stats-grid">
+                <div class="stats-grid fade-up">
                     <div class="stat-box"><div class="stat-number">100%</div><div class="stat-label">Quality Focus</div></div>
                     <div class="stat-box"><div class="stat-number">High</div><div class="stat-label">Capacity</div></div>
                     <div class="stat-box"><div class="stat-number">24/7</div><div class="stat-label">Support</div></div>
@@ -538,8 +580,8 @@
     <section id="products" class="section-padding" style="background-color: #05070a;">
         <div class="container">
             <span class="section-title-uppercase">Our Catalog</span>
-            <h2>Our Products</h2>
-            <div class="filter-buttons">
+            <h2 class="fade-up">Our Products</h2>
+            <div class="filter-buttons fade-up">
                 <button class="filter-btn active" data-filter="all">All Products</button>
                 <button class="filter-btn" data-filter="labels">Labels</button>
                 <button class="filter-btn" data-filter="tech">Technical</button>
@@ -547,16 +589,16 @@
                 <button class="filter-btn" data-filter="hardware">Hardware</button>
             </div>
             <div class="grid-3">
-                <div class="product-card" data-category="labels"><div class="product-image-wrapper"><img src="WovenLabels.png" alt="Woven Labels" onerror="this.src='https://picsum.photos/seed/woven/800/800'"></div><div class="product-info"><h3>Woven Labels</h3><p>High-definition weaving for durable and detailed brand identity on apparel.</p><div><span class="tag">Premium</span><span class="tag">Durable</span></div></div></div>
-                <div class="product-card" data-category="labels"><div class="product-image-wrapper"><img src="PFL.png" alt="Printed Fabric Labels" onerror="this.src='https://picsum.photos/seed/pfl/800/800'"></div><div class="product-info"><h3>Printed Fabric Labels</h3><p>High-quality care and composition labels printed on materials like satin, cotton, and nylon.</p><div><span class="tag">Satin</span><span class="tag">Cotton</span></div></div></div>
-                <div class="product-card" data-category="labels"><div class="product-image-wrapper"><img src="HeatTransfer.png" alt="Heat Transfer Labels" onerror="this.src='https://picsum.photos/seed/heat/800/800'"></div><div class="product-info"><h3>Heat Transfer Labels</h3><p>Innovative tag-less labeling solutions applied via heat for comfort and durability.</p><div><span class="tag">Tag-less</span><span class="tag">Comfort</span></div></div></div>
-                <div class="product-card" data-category="labels"><div class="product-image-wrapper"><img src="ScreenLabels.png" alt="Screen Printed Labels" onerror="this.src='https://picsum.photos/seed/screen/800/800'"></div><div class="product-info"><h3>Screen Printed Labels</h3><p>Vibrant and long-lasting labels produced with traditional screen techniques.</p><div><span class="tag">Vibrant</span><span class="tag">Color</span></div></div></div>
-                <div class="product-card" data-category="tech"><div class="product-image-wrapper"><img src="Barcode.png" alt="Variable Data" onerror="this.src='https://picsum.photos/seed/barcode/800/800'"></div><div class="product-info"><h3>Variable Data & Barcode</h3><p>Precision printing for price stickers, barcodes, and SKU labels.</p><div><span class="tag">SKU</span><span class="tag">Tracking</span></div></div></div>
-                <div class="product-card" data-category="tech"><div class="product-image-wrapper"><img src="WaxRibbons.png" alt="Thermal Wax Ribbons" onerror="this.src='https://picsum.photos/seed/wax/800/800'"></div><div class="product-info"><h3>Thermal Wax Ribbons</h3><p>High-performance, smudge-resistant ribbons for crisp thermal printing.</p><div><span class="tag">Resin</span><span class="tag">Crisp</span></div></div></div>
-                <div class="product-card" data-category="tech"><div class="product-image-wrapper"><img src="RFID.png" alt="RFID Smart Labeling" onerror="this.src='https://picsum.photos/seed/rfid/800/800'"></div><div class="product-info"><h3>RFID & Smart Labeling</h3><p>Advanced tracking technology for efficient supply chain and retail management.</p><div><span class="tag">IoT</span><span class="tag">Smart</span></div></div></div>
-                <div class="product-card" data-category="packaging"><div class="product-image-wrapper"><img src="Hangtags.png" alt="Branding Hangtags" onerror="this.src='https://picsum.photos/seed/hangtags/800/800'"></div><div class="product-info"><h3>Branding Hangtags</h3><p>Custom-designed tags using offset and digital printing to enhance visual appeal.</p><div><span class="tag">Offset</span><span class="tag">Digital</span></div></div></div>
-                <div class="product-card" data-category="packaging"><div class="product-image-wrapper"><img src="SealCords.png" alt="Seal Cords" onerror="this.src='https://picsum.photos/seed/cords/800/800'"></div><div class="product-info"><h3>Seal Cords & Strings</h3><p>High-quality attachment solutions to secure hangtags.</p><div><span class="tag">Secure</span><span class="tag">Durable</span></div></div></div>
-                <div class="product-card" data-category="hardware"><div class="product-image-wrapper"><img src="Buttons.png" alt="Apparel Buttons" onerror="this.src='https://picsum.photos/seed/buttons/800/800'"></div><div class="product-info"><h3>Apparel Buttons & Hardware</h3><p>Versatile range of functional and decorative buttons in various finishes.</p><div><span class="tag">Metal</span><span class="tag">Plastic</span></div></div></div>
+                <div class="product-card fade-up" data-category="labels"><div class="product-image-wrapper"><img src="WovenLabels.png" alt="Woven Labels" onerror="this.src='https://picsum.photos/seed/woven/800/800'"></div><div class="product-info"><h3>Woven Labels</h3><p>High-definition weaving for durable and detailed brand identity on apparel.</p><div><span class="tag">Premium</span><span class="tag">Durable</span></div></div></div>
+                <div class="product-card fade-up" data-category="labels"><div class="product-image-wrapper"><img src="PFL.png" alt="Printed Fabric Labels" onerror="this.src='https://picsum.photos/seed/pfl/800/800'"></div><div class="product-info"><h3>Printed Fabric Labels</h3><p>High-quality care and composition labels printed on materials like satin, cotton, and nylon.</p><div><span class="tag">Satin</span><span class="tag">Cotton</span></div></div></div>
+                <div class="product-card fade-up" data-category="labels"><div class="product-image-wrapper"><img src="HeatTransfer.png" alt="Heat Transfer Labels" onerror="this.src='https://picsum.photos/seed/heat/800/800'"></div><div class="product-info"><h3>Heat Transfer Labels</h3><p>Innovative tag-less labeling solutions applied via heat for comfort and durability.</p><div><span class="tag">Tag-less</span><span class="tag">Comfort</span></div></div></div>
+                <div class="product-card fade-up" data-category="labels"><div class="product-image-wrapper"><img src="ScreenLabels.png" alt="Screen Printed Labels" onerror="this.src='https://picsum.photos/seed/screen/800/800'"></div><div class="product-info"><h3>Screen Printed Labels</h3><p>Vibrant and long-lasting labels produced with traditional screen techniques.</p><div><span class="tag">Vibrant</span><span class="tag">Color</span></div></div></div>
+                <div class="product-card fade-up" data-category="tech"><div class="product-image-wrapper"><img src="Barcode.png" alt="Variable Data" onerror="this.src='https://picsum.photos/seed/barcode/800/800'"></div><div class="product-info"><h3>Variable Data & Barcode</h3><p>Precision printing for price stickers, barcodes, and SKU labels.</p><div><span class="tag">SKU</span><span class="tag">Tracking</span></div></div></div>
+                <div class="product-card fade-up" data-category="tech"><div class="product-image-wrapper"><img src="WaxRibbons.png" alt="Thermal Wax Ribbons" onerror="this.src='https://picsum.photos/seed/wax/800/800'"></div><div class="product-info"><h3>Thermal Wax Ribbons</h3><p>High-performance, smudge-resistant ribbons for crisp thermal printing.</p><div><span class="tag">Resin</span><span class="tag">Crisp</span></div></div></div>
+                <div class="product-card fade-up" data-category="tech"><div class="product-image-wrapper"><img src="RFID.png" alt="RFID Smart Labeling" onerror="this.src='https://picsum.photos/seed/rfid/800/800'"></div><div class="product-info"><h3>RFID & Smart Labeling</h3><p>Advanced tracking technology for efficient supply chain and retail management.</p><div><span class="tag">IoT</span><span class="tag">Smart</span></div></div></div>
+                <div class="product-card fade-up" data-category="packaging"><div class="product-image-wrapper"><img src="Hangtags.png" alt="Branding Hangtags" onerror="this.src='https://picsum.photos/seed/hangtags/800/800'"></div><div class="product-info"><h3>Branding Hangtags</h3><p>Custom-designed tags using offset and digital printing to enhance visual appeal.</p><div><span class="tag">Offset</span><span class="tag">Digital</span></div></div></div>
+                <div class="product-card fade-up" data-category="packaging"><div class="product-image-wrapper"><img src="SealCords.png" alt="Seal Cords" onerror="this.src='https://picsum.photos/seed/cords/800/800'"></div><div class="product-info"><h3>Seal Cords & Strings</h3><p>High-quality attachment solutions to secure hangtags.</p><div><span class="tag">Secure</span><span class="tag">Durable</span></div></div></div>
+                <div class="product-card fade-up" data-category="hardware"><div class="product-image-wrapper"><img src="Buttons.png" alt="Apparel Buttons" onerror="this.src='https://picsum.photos/seed/buttons/800/800'"></div><div class="product-info"><h3>Apparel Buttons & Hardware</h3><p>Versatile range of functional and decorative buttons in various finishes.</p><div><span class="tag">Metal</span><span class="tag">Plastic</span></div></div></div>
             </div>
         </div>
     </section>
@@ -565,8 +607,8 @@
     <section id="machinery" class="section-padding">
         <div class="container">
             <span class="section-title-uppercase">Production Floor</span>
-            <h2>Machinery & Capacity</h2>
-            <div class="table-container">
+            <h2 class="fade-up">Machinery & Capacity</h2>
+            <div class="table-container fade-up">
                 <table>
                     <thead><tr><th>Machine Name</th><th>Quantity</th><th>Monthly Capacity</th></tr></thead>
                     <tbody>
@@ -586,11 +628,11 @@
     <section id="team" class="section-padding" style="background-color: #05070a;">
         <div class="container">
             <span class="section-title-uppercase">Leadership</span>
-            <h2>Management Team</h2>
+            <h2 class="fade-up">Management Team</h2>
             <div class="grid-4">
-                <div class="team-card"><div class="team-img-wrapper"><img src="Chairman.png" alt="Chairman" class="team-img" onerror="this.src='https://picsum.photos/seed/chairman/300/300'"></div><div class="team-info"><h3>Imtiaz Azad Emon</h3><span class="team-role">Chairman</span><div class="team-contact"><p><a href="tel:+8801719264759">+88 01719264759</a></p><a href="mailto:iaemon@hmlabel.com">Email</a></div></div></div>
-                <div class="team-card"><div class="team-img-wrapper"><img src="ManagingDirector.png" alt="Managing Director" class="team-img" onerror="this.src='https://picsum.photos/seed/md/300/300'"></div><div class="team-info"><h3>MD Hafizur Rahman</h3><span class="team-role">Managing Director</span><div class="team-contact"><p><a href="tel:+8801746828400">+88 01746828400</a></p><a href="mailto:hafizur@hmlabel.com">Email</a></div></div></div>
-                <div class="team-card"><div class="team-img-wrapper"><img src="HeadOfSalesAndMarketing.png" alt="Head of Sales" class="team-img" onerror="this.src='https://picsum.photos/seed/sales/300/300'"></div><div class="team-info"><h3>MD Jahangir Alam</h3><span class="team-role">Head of Sales & Marketing</span><div class="team-contact"><p><a href="tel:+8801627809099">+88 01627809099</a></p><a href="mailto:jahangir@hmlabel.com">Email</a></div></div></div>
+                <div class="team-card fade-up"><div class="team-img-wrapper"><img src="Chairman.png" alt="Chairman" class="team-img" onerror="this.src='https://picsum.photos/seed/chairman/300/300'"></div><div class="team-info"><h3>Imtiaz Azad Emon</h3><span class="team-role">Chairman</span><div class="team-contact"><p><a href="tel:+8801719264759">+88 01719264759</a></p><a href="mailto:iaemon@hmlabel.com">Email</a></div></div></div>
+                <div class="team-card fade-up"><div class="team-img-wrapper"><img src="ManagingDirector.png" alt="Managing Director" class="team-img" onerror="this.src='https://picsum.photos/seed/md/300/300'"></div><div class="team-info"><h3>MD Hafizur Rahman</h3><span class="team-role">Managing Director</span><div class="team-contact"><p><a href="tel:+8801746828400">+88 01746828400</a></p><a href="mailto:hafizur@hmlabel.com">Email</a></div></div></div>
+                <div class="team-card fade-up"><div class="team-img-wrapper"><img src="HeadOfSalesAndMarketing.png" alt="Head of Sales" class="team-img" onerror="this.src='https://picsum.photos/seed/sales/300/300'"></div><div class="team-info"><h3>MD Jahangir Alam</h3><span class="team-role">Head of Sales & Marketing</span><div class="team-contact"><p><a href="tel:+8801627809099">+88 01627809099</a></p><a href="mailto:jahangir@hmlabel.com">Email</a></div></div></div>
             </div>
         </div>
     </section>
@@ -599,23 +641,23 @@
     <section id="sustainability" class="section-padding sustainability-section">
         <div class="container">
             <span class="section-title-uppercase">Green Future</span>
-            <h2>Our Sustainability Commitment</h2>
+            <h2 class="fade-up">Our Sustainability Commitment</h2>
             <div class="sus-grid">
-                <div class="sus-card"><i class="fas fa-leaf sus-icon"></i><h3>Eco Materials</h3><p>Usage of Recycled Polyester and FSC-certified paper for a reduced carbon footprint.</p></div>
-                <div class="sus-card"><i class="fas fa-recycle sus-icon"></i><h3>Waste Reduction</h3><p>Waste reduction through efficient Swiss & German technology and optimized production cycles.</p></div>
-                <div class="sus-card"><i class="fas fa-paint-brush sus-icon"></i><h3>Safe Inks</h3><p>Eco-friendly, non-toxic inks for all printing needs to ensure safety for end-users.</p></div>
-                <div class="quote-box">"To become a carbon-neutral manufacturing partner by promoting circularity in garment labeling."</div>
+                <div class="sus-card fade-up"><i class="fas fa-leaf sus-icon"></i><h3>Eco Materials</h3><p>Usage of Recycled Polyester and FSC-certified paper for a reduced carbon footprint.</p></div>
+                <div class="sus-card fade-up"><i class="fas fa-recycle sus-icon"></i><h3>Waste Reduction</h3><p>Waste reduction through efficient Swiss & German technology and optimized production cycles.</p></div>
+                <div class="sus-card fade-up"><i class="fas fa-paint-brush sus-icon"></i><h3>Safe Inks</h3><p>Eco-friendly, non-toxic inks for all printing needs to ensure safety for end-users.</p></div>
+                <div class="quote-box fade-up">"To become a carbon-neutral manufacturing partner by promoting circularity in garment labeling."</div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- CONTACT (with QR code) -->
     <section id="contact" class="section-padding contact-section">
         <div class="container">
             <span class="section-title-uppercase">Reach Out</span>
-            <h2>Contact Us</h2>
+            <h2 class="fade-up">Contact Us</h2>
             <div class="grid-2" style="margin-bottom: 50px;">
-                <div>
+                <div class="fade-up">
                     <div class="contact-info">
                         <h4>Managing Director</h4>
                         <p><strong>MD Hafizur Rahman</strong></p>
@@ -626,8 +668,15 @@
                         <h4>Website</h4>
                         <a href="http://www.hmlabel.com" target="_blank" style="font-size: 1.2rem; color: var(--primary);">www.hmlabel.com</a>
                     </div>
+                    <!-- QR Code for Chairman -->
+                    <div class="qr-wrapper">
+                        <div class="qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3AImtiaz%20Azad%20Emon%0AORG%3AHM%20Label%20%26%20Accessories%20Ltd.%0ATITLE%3AChairman%0ATEL%3BWORK%3A%2B8801719264759%0AEMAIL%3Aiaemon%40hmlabel.com%0AURL%3Ahttps%3A%2F%2Fwww.hmlabel.com%0AADR%3BWORK%3A%3B%3BHouse%2325%2C%20Road%2004%2C%20Sector%203%2C%20Uttara%3BDhaka%3B%3B1230%3BBangladesh%0AEND%3AVCARD" alt="Chairman QR Code">
+                        </div>
+                        <div class="qr-note">Scan for Chairman contact</div>
+                    </div>
                 </div>
-                <div>
+                <div class="fade-up">
                     <div class="contact-info">
                         <h4>Corporate Office</h4>
                         <p style="color:#fff;">House#25, Road -04, Sector -3, Uttara Dhaka 1230</p>
@@ -639,8 +688,8 @@
                 </div>
             </div>
             <div class="grid-2">
-                <div><div class="map-label"><i class="fas fa-map-marker-alt"></i> Corporate Office (Uttara)</div><div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=House%2025%2C%20Road%204%2C%20Sector%203%2C%20Uttara%2C%20Dhaka%201230&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div></div>
-                <div><div class="map-label"><i class="fas fa-industry"></i> Factory (Ashulia)</div><div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Aukpara%2C%20Ashulia%2C%20Savar%2C%20Dhaka%201341&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div></div>
+                <div class="fade-up"><div class="map-label"><i class="fas fa-map-marker-alt"></i> Corporate Office (Uttara)</div><div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=House%2025%2C%20Road%204%2C%20Sector%203%2C%20Uttara%2C%20Dhaka%201230&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div></div>
+                <div class="fade-up"><div class="map-label"><i class="fas fa-industry"></i> Factory (Ashulia)</div><div class="map-wrapper"><iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Aukpara%2C%20Ashulia%2C%20Savar%2C%20Dhaka%201341&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe></div></div>
             </div>
         </div>
     </section>
@@ -733,6 +782,21 @@
                 cursor.style.transform = 'scale(1)';
             });
         });
+
+        // SCROLL REVEAL (fade-up)
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+        // Trigger initial check
+        setTimeout(() => {
+            fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible'); });
+        }, 100);
     </script>
 </body>
 </html>
